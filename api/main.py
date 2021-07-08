@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import  hybrid_recommendation as ubf
 import difflib
 
 
@@ -11,7 +10,7 @@ film_yorum_sayilari = pd.DataFrame(df["title"].value_counts())
 # isin fonksiyonu bir dataframe içinden istenilen özellikteki row ları seçmeye yarıyor.
 # burada yorum sayısı 1000'den fazla olan filmler seçiliyor.
 populer_filmler = df[df["title"].isin(film_yorum_sayilari[film_yorum_sayilari["title"] > 10000].index)]
-print(film_yorum_sayilari[film_yorum_sayilari["title"] > 10000].shape)
+#print(film_yorum_sayilari[film_yorum_sayilari["title"] > 10000].shape)
 kullanici_film_matrisi = populer_filmler.pivot_table(index=["userId"], columns=["title"], values="rating")
 
 
@@ -23,7 +22,7 @@ def urun_bazli_filtreleme(film_adi):
     return kullanici_film_matrisi.corrwith(film_adi).sort_values(ascending=False).head(10)
 
 
-print(urun_bazli_filtreleme("Matrix "))
+#print(urun_bazli_filtreleme("Matrix "))
 
 def kullanici_bazli_filtreleme(kullaniciId):
     random_kullanici_df = kullanici_film_matrisi[kullanici_film_matrisi.index == kullaniciId]
@@ -70,6 +69,6 @@ def kullanici_bazli_filtreleme(kullaniciId):
     onerilen_df = onerilen_df.sort_values("weighted_rating", ascending=False)
     return onerilen_df.merge(film[["movieId", "title"]])[:10]['title'].to_list()
 
-random_kullaniciId = int(pd.Series(kullanici_film_matrisi.index).sample(1, random_state=45).values)
-print(random_kullaniciId)
-print(kullanici_bazli_filtreleme(random_kullaniciId))
+#random_kullaniciId = int(pd.Series(kullanici_film_matrisi.index).sample(1, random_state=45).values)
+#print(random_kullaniciId)
+#print(kullanici_bazli_filtreleme(random_kullaniciId))
