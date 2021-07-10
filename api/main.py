@@ -69,6 +69,6 @@ def kullanici_bazli_filtreleme(kullaniciId):
     onerilen_df = onerilen_df.sort_values("weighted_rating", ascending=False)
     return onerilen_df.merge(film[["movieId", "title"]])[:10]['title'].to_list()
 
-#random_kullaniciId = int(pd.Series(kullanici_film_matrisi.index).sample(1, random_state=45).values)
-#print(random_kullaniciId)
+random_kullaniciId = int(pd.Series(kullanici_film_matrisi.index).sample(1, random_state=45).values)
+print(random_kullaniciId)
 #print(kullanici_bazli_filtreleme(random_kullaniciId))
